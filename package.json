@@ -7,6 +7,7 @@
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test src/hooks/contractTxOptions.test.ts",
     "typecheck": "tsc --noEmit",
     "sync-env": "node scripts/update-env-from-store.mjs"
   },

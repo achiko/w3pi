@@ -15,6 +15,7 @@ import {
   installSigningPayloadRecorder,
   installTalismanSignatureOnlySigner,
 } from '@/config/paseoSignedExtensions'
+import { createEstimatedTxOptions } from '@/hooks/contractTxOptions'
 import { ensurePaseoMetadataInTalisman } from '@/lib/talismanPaseo'
 import { recordTransactionError } from '@/lib/transactionError'
 
@@ -189,12 +190,11 @@ export function useContractTx(
             txOptions,
           ),
         )
-        const estimatedTxOptions: Partial<ContractTxOptions> = {
-          ...txOptions,
-          gasLimit: weightLimit,
-          storageDepositLimit:
-            txOptions.storageDepositLimit ?? dryRun.raw.storageDeposit.value,
-        }
+        const estimatedTxOptions = createEstimatedTxOptions(
+          txOptions,
+          weightLimit,
+          dryRun.raw.storageDeposit.value,
+        )
         effectiveTxOptions = estimatedTxOptions
 
         if (
