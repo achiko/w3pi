@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import { Contract, toEvmAddress } from 'dedot/contracts'
 import { CircleDollarSign, Moon, ShieldCheck, Sun } from 'lucide-react'
 import { useTypink } from 'typink'
@@ -22,15 +22,45 @@ const DEFAULT_READONLY_CALLER_ADDRESS = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPc
 
 function Logo() {
   return (
-    <div className="flex items-center gap-2.5">
+    <a
+      aria-label="W3PI home"
+      className="flex items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      href="/"
+      onClick={handleHomeLinkClick}
+      title="W3PI home"
+    >
       <div className="grid h-7 w-7 grid-cols-3 items-end gap-0.5">
         <span className="h-3 rounded-sm bg-blue-500" />
         <span className="h-5 rounded-sm bg-indigo-500" />
         <span className="h-7 rounded-sm bg-emerald-500" />
       </div>
-      <span className="text-xl font-bold text-slate-950 dark:text-slate-50">W3PI</span>
-    </div>
+      <span className="flex items-baseline gap-1.5">
+        <span className="text-xl font-bold text-slate-950 dark:text-slate-50">W3PI</span>
+        <span
+          className="text-[10px] font-medium text-slate-400 dark:text-slate-500"
+          title={`Application version ${__APP_VERSION__}`}
+        >
+          v{__APP_VERSION__}
+        </span>
+      </span>
+    </a>
   )
+}
+
+function handleHomeLinkClick(event: MouseEvent<HTMLAnchorElement>) {
+  if (
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  ) {
+    return
+  }
+
+  event.preventDefault()
+  navigateTo('/')
 }
 
 function ChainIndicator() {

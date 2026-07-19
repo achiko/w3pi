@@ -1,9 +1,13 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { readFileSync } from 'node:fs'
 import path from 'path'
 
 const DEFAULT_APP_PORT = 5173
+const { version: APP_RELEASE_VERSION } = JSON.parse(
+  readFileSync(new URL('./package.json', import.meta.url), 'utf8'),
+) as { version: string }
 
 function getAppPort(rawPort: string | undefined) {
   const port = Number(rawPort ?? DEFAULT_APP_PORT)
@@ -18,8 +22,12 @@ function getAppPort(rawPort: string | undefined) {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname, 'VITE_W3PI_APP_PORT')
   const appPort = getAppPort(env.VITE_W3PI_APP_PORT)
+  const appVersion = `${APP_RELEASE_VERSION}+${Date.now()}`
 
   return {
+    define: {
+      __APP_VERSION__: JSON.stringify(appVersion),
+    },
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

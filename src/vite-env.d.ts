@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+declare const __APP_VERSION__: string
+
 interface ImportMetaEnv {
   readonly VITE_W3PI_NETWORK: string
   readonly VITE_W3PI_RPC_URL: string
