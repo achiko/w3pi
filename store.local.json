@@ -1,0 +1,16 @@
+{
+    "network": "wss://api-asset-hub-paseo.n.dwellir.com/6596995e-04b7-41fa-b8e4-3818696cacb7",
+    "deployed_at": "2026-07-14T18:40:35.926Z",
+    "contracts": {
+        "w3pi_token": "0xa499c43b6306d17dbd3a47c464905319ef8ff2b1",
+        "usdc_token": "0x0b1840b9666f31da00e197bb61f494bcb9e11bc2",
+        "oracle": "0x226b2aec35a42d9069d6d9a42af1f9386ae3ee42",
+        "registry": "0x7b88863ce4f2514f2621eb05b77200679886ed3f",
+        "dex": "0x4d38ed32b7634b5b93bdca0406c376386d58b520",
+        "portfolio": "0x5c9368e9f48579341efc5d1330cd15cd54aaf6fc",
+        "portfolio_manager": "0xe6436b42fce3bd4dab57f0175d191da7b7332f3e",
+        "staking": "0x055c390cc19139bccb1d0302836a9360b1fe8f2f",
+        "wdot_token": "0x4403d4c0cabf6b056c32ed6403029af83fd08164",
+        "wpolyx_token": "0xeeca285be40850b85083ccbca1da58c6d324ed8a"
+    }
+}

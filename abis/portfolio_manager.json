@@ -1,0 +1,2716 @@
+{
+  "source": {
+    "hash": "0x688e09b0338773f6defc379d95659bf3f449859034afb486c435be3151d536e4",
+    "language": "ink! 6.0.0-beta.1",
+    "compiler": "rustc 1.92.0-nightly",
+    "build_info": {
+      "build_mode": "Release",
+      "cargo_contract_version": "6.0.0-beta.1",
+      "rust_toolchain": "nightly-aarch64-apple-darwin"
+    }
+  },
+  "contract": {
+    "name": "portfolio_manager",
+    "version": "0.1.0",
+    "authors": [
+      "3dln <ashcan@3dln.com>"
+    ]
+  },
+  "image": null,
+  "spec": {
+    "constructors": [
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "new",
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink_primitives",
+            "ConstructorResult"
+          ],
+          "type": 20
+        },
+        "selector": "0x9bae9d5e"
+      }
+    ],
+    "docs": [],
+    "environment": {
+      "accountId": {
+        "displayName": [
+          "AccountId"
+        ],
+        "type": 39
+      },
+      "balance": {
+        "displayName": [
+          "Balance"
+        ],
+        "type": 8
+      },
+      "blockNumber": {
+        "displayName": [
+          "BlockNumber"
+        ],
+        "type": 11
+      },
+      "hash": {
+        "displayName": [
+          "Hash"
+        ],
+        "type": 41
+      },
+      "nativeToEthRatio": 100000000,
+      "poolAssetsPrecompileIndex": 800,
+      "staticBufferSize": 16384,
+      "timestamp": {
+        "displayName": [
+          "Timestamp"
+        ],
+        "type": 9
+      },
+      "trustBackedAssetsPrecompileIndex": 288
+    },
+    "events": [
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "seller",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "w3pi_burned",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "usdc_returned",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [],
+        "label": "W3PISold",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0xb7b0680f3f3bd1d23b0533ac383f9fb71fd3350650790fc66cfaf20a0027c491"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "seller",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "w3pi_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "supply",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "pct",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "docs": [],
+        "label": "SellEvent",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0x1cde1fda395f95ced7b8f63b68662bd842cf7692247424d18afb1a43951ac47d"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "buyer",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "usdc_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "w3pi_minted",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [],
+        "label": "W3PIBought",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0xf2baf8b7656a9d87f6196958fd8e0694f45477cc49215187ceff8f58341ddb20"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "token_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "token_addr",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "token_decimals",
+            "type": {
+              "displayName": [
+                "u8"
+              ],
+              "type": 2
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "price",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "holding_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "holdong_target_weight_bp",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "holdong_last_rebalance",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 9
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "holding_fees_collected",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [],
+        "label": "TokenContext",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0x7e2c53648298b406a54412c50ddd2d06e5c8e7ad7e7240ee0f3b8f2278de9b84"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "tokens_snapshot",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "docs": [],
+        "label": "SnapshotTaken",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0xd2205d530a37c065901d185c6f62b53e7e64aa6e16b05c5c0d90bb985b34d46c"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "executed_orders",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "timestamp",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 9
+            }
+          }
+        ],
+        "docs": [],
+        "label": "RebalanceCompleted",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0x1e6f70b5a2508d35b89c3e974b8d79052f606b31d63b7e81aa3e693dbc801c83"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "usdc_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [],
+        "label": "ReallocationReceived",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0x25f44fa8490ac7a00c34ace39308774803703c46f6fe27d5fe50c9328670f6dd"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "fee_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "timestamp",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 9
+            }
+          }
+        ],
+        "docs": [],
+        "label": "StreamingFeeCollected",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0xeb828137459ba9bdfacce5043e0d26782df905b840cc39e7930c3eaf837a5d4e"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "to",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "docs": [],
+            "indexed": false,
+            "label": "amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [],
+        "label": "AccumulatedFeesWithdrawn",
+        "module_path": "portfolio_manager::portfolio_manager",
+        "signature_topic": "0x260043d6887b2573afb3ae9683b08905fde0be949a006d3fa7e874a25dfea4e1"
+      }
+    ],
+    "lang_error": {
+      "displayName": [
+        "ink",
+        "LangError"
+      ],
+      "type": 21
+    },
+    "messages": [
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "get_owner",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x07fcd0b1"
+      },
+      {
+        "args": [
+          {
+            "label": "new_owner",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "transfer_ownership",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x107e33ea"
+      },
+      {
+        "args": [
+          {
+            "label": "ref_type",
+            "type": {
+              "displayName": [
+                "u8"
+              ],
+              "type": 2
+            }
+          },
+          {
+            "label": "addr",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Set a contract reference: 0=portfolio, 1=registry, 2=dex, 3=token, 4=usdc, 5=staking"
+        ],
+        "label": "set_contract_ref",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x24930d33"
+      },
+      {
+        "args": [
+          {
+            "label": "ref_type",
+            "type": {
+              "displayName": [
+                "u8"
+              ],
+              "type": 2
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Get a contract reference: 0=portfolio, 1=registry, 2=dex, 3=token, 4=usdc, 5=staking"
+        ],
+        "label": "get_contract_ref",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 26
+        },
+        "selector": "0x00ef2cf6"
+      },
+      {
+        "args": [
+          {
+            "label": "enabled",
+            "type": {
+              "displayName": [
+                "bool"
+              ],
+              "type": 17
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "set_moving_average_enabled",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x72649b99"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "is_moving_average_enabled",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 27
+        },
+        "selector": "0x672ffade"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "take_weekly_snapshot",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 28
+        },
+        "selector": "0xcadf5ac0"
+      },
+      {
+        "args": [
+          {
+            "label": "token_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "get_four_week_average_market_cap",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 30
+        },
+        "selector": "0x4bb50785"
+      },
+      {
+        "args": [
+          {
+            "label": "token_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "get_token_snapshot_history",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 32
+        },
+        "selector": "0xd35c182b"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "is_snapshot_due",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 27
+        },
+        "selector": "0xdf4fe542"
+      },
+      {
+        "args": [
+          {
+            "label": "enabled",
+            "type": {
+              "displayName": [
+                "bool"
+              ],
+              "type": 17
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "set_rebalancing_enabled",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0xe7222366"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "is_rebalancing_enabled",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 27
+        },
+        "selector": "0x4e1537d8"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "is_rebalance_due",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 27
+        },
+        "selector": "0x6725cf90"
+      },
+      {
+        "args": [
+          {
+            "label": "bp",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "set_max_monthly_shift",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x9a9ccf5b"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "execute_monthly_rebalance",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 28
+        },
+        "selector": "0xce20575e"
+      },
+      {
+        "args": [
+          {
+            "label": "t",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "set_fee_treasury",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x5667983d"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "get_fee_treasury",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 26
+        },
+        "selector": "0x8ff9f51b"
+      },
+      {
+        "args": [
+          {
+            "label": "to",
+            "type": {
+              "displayName": [
+                "Address"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "withdraw_accumulated_fees",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x7236a773"
+      },
+      {
+        "args": [
+          {
+            "label": "ms",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 9
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "set_streaming_fee_interval",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0xc058dfca"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "is_fee_collection_due",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 27
+        },
+        "selector": "0xacf8b13e"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "collect_streaming_fee",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 30
+        },
+        "selector": "0x0f716a8a"
+      },
+      {
+        "args": [
+          {
+            "label": "usdc_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "buy_w3pi",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 30
+        },
+        "selector": "0x58015b4d"
+      },
+      {
+        "args": [
+          {
+            "label": "w3pi_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "sell_w3pi",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 30
+        },
+        "selector": "0x8cb25829"
+      },
+      {
+        "args": [
+          {
+            "label": "usdc_amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "receive_reallocation",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x42ef969b"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "get_current_index_value",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 30
+        },
+        "selector": "0x19c35771"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "current_nav_per_w3pi",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 30
+        },
+        "selector": "0x42e08742"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "index_value_new",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 30
+        },
+        "selector": "0xcba3f83c"
+      },
+      {
+        "args": [
+          {
+            "label": "amount",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "set_max_single_trade",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 23
+        },
+        "selector": "0x7486703b"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "get_max_single_trade",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 34
+        },
+        "selector": "0x579be447"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "get_rebalancing_config",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 35
+        },
+        "selector": "0xda23715e"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "get_streaming_fee_config",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 37
+        },
+        "selector": "0x735e9c96"
+      }
+    ]
+  },
+  "storage": {
+    "root": {
+      "layout": {
+        "struct": {
+          "fields": [
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 0
+                }
+              },
+              "name": "owner"
+            },
+            {
+              "layout": {
+                "root": {
+                  "layout": {
+                    "leaf": {
+                      "key": "0x2a29903a",
+                      "ty": 0
+                    }
+                  },
+                  "root_key": "0x2a29903a",
+                  "ty": 3
+                }
+              },
+              "name": "refs"
+            },
+            {
+              "layout": {
+                "root": {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "array": {
+                              "layout": {
+                                "struct": {
+                                  "fields": [
+                                    {
+                                      "layout": {
+                                        "leaf": {
+                                          "key": "0x638c7c2e",
+                                          "ty": 8
+                                        }
+                                      },
+                                      "name": "market_cap"
+                                    },
+                                    {
+                                      "layout": {
+                                        "leaf": {
+                                          "key": "0x638c7c2e",
+                                          "ty": 8
+                                        }
+                                      },
+                                      "name": "price"
+                                    },
+                                    {
+                                      "layout": {
+                                        "leaf": {
+                                          "key": "0x638c7c2e",
+                                          "ty": 9
+                                        }
+                                      },
+                                      "name": "timestamp"
+                                    },
+                                    {
+                                      "layout": {
+                                        "leaf": {
+                                          "key": "0x638c7c2e",
+                                          "ty": 2
+                                        }
+                                      },
+                                      "name": "week_index"
+                                    }
+                                  ],
+                                  "name": "WeeklySnapshot"
+                                }
+                              },
+                              "len": 4,
+                              "offset": "0x638c7c2e"
+                            }
+                          },
+                          "name": "snapshots"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x638c7c2e",
+                              "ty": 2
+                            }
+                          },
+                          "name": "current_index"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x638c7c2e",
+                              "ty": 2
+                            }
+                          },
+                          "name": "snapshot_count"
+                        }
+                      ],
+                      "name": "TokenSnapshotHistory"
+                    }
+                  },
+                  "root_key": "0x638c7c2e",
+                  "ty": 10
+                }
+              },
+              "name": "token_snapshots"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 9
+                }
+              },
+              "name": "last_snapshot_timestamp"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 9
+                }
+              },
+              "name": "snapshot_interval_ms"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 17
+                }
+              },
+              "name": "moving_average_enabled"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 9
+                }
+              },
+              "name": "last_monthly_rebalance"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 9
+                }
+              },
+              "name": "monthly_rebalance_interval_ms"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 11
+                }
+              },
+              "name": "max_monthly_shift_bp"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 11
+                }
+              },
+              "name": "current_month_shift_bp"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 17
+                }
+              },
+              "name": "rebalancing_enabled"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 9
+                }
+              },
+              "name": "last_streaming_fee_collection"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 8
+                }
+              },
+              "name": "total_streaming_fees_collected"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 9
+                }
+              },
+              "name": "streaming_fee_interval_ms"
+            },
+            {
+              "layout": {
+                "enum": {
+                  "dispatchKey": "0x00000000",
+                  "name": "Option",
+                  "variants": {
+                    "0": {
+                      "fields": [],
+                      "name": "None"
+                    },
+                    "1": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x00000000",
+                              "ty": 0
+                            }
+                          },
+                          "name": "0"
+                        }
+                      ],
+                      "name": "Some"
+                    }
+                  }
+                }
+              },
+              "name": "fee_treasury"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 8
+                }
+              },
+              "name": "max_single_trade_usdc"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 17
+                }
+              },
+              "name": "reentrancy_guard"
+            }
+          ],
+          "name": "PortfolioManager"
+        }
+      },
+      "root_key": "0x00000000",
+      "ty": 18
+    }
+  },
+  "types": [
+    {
+      "id": 0,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "type": 1,
+                "typeName": "[u8; 20]"
+              }
+            ]
+          }
+        },
+        "path": [
+          "primitive_types",
+          "H160"
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "type": {
+        "def": {
+          "array": {
+            "len": 20,
+            "type": 2
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": {
+        "def": {
+          "primitive": "u8"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": {
+        "def": {
+          "composite": {}
+        },
+        "params": [
+          {
+            "name": "K",
+            "type": 2
+          },
+          {
+            "name": "V",
+            "type": 0
+          },
+          {
+            "name": "KeyType",
+            "type": 4
+          }
+        ],
+        "path": [
+          "ink_storage",
+          "lazy",
+          "mapping",
+          "Mapping"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "type": {
+        "def": {
+          "composite": {}
+        },
+        "params": [
+          {
+            "name": "L",
+            "type": 5
+          },
+          {
+            "name": "R",
+            "type": 6
+          }
+        ],
+        "path": [
+          "ink_storage_traits",
+          "impls",
+          "ResolverKey"
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "type": {
+        "def": {
+          "composite": {}
+        },
+        "path": [
+          "ink_storage_traits",
+          "impls",
+          "AutoKey"
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "type": {
+        "def": {
+          "composite": {}
+        },
+        "params": [
+          {
+            "name": "ParentKey",
+            "type": 7
+          }
+        ],
+        "path": [
+          "ink_storage_traits",
+          "impls",
+          "ManualKey"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "type": {
+        "def": {
+          "tuple": []
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": {
+        "def": {
+          "primitive": "u128"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "type": {
+        "def": {
+          "primitive": "u64"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "type": {
+        "def": {
+          "composite": {}
+        },
+        "params": [
+          {
+            "name": "K",
+            "type": 11
+          },
+          {
+            "name": "V",
+            "type": 12
+          },
+          {
+            "name": "KeyType",
+            "type": 15
+          }
+        ],
+        "path": [
+          "ink_storage",
+          "lazy",
+          "mapping",
+          "Mapping"
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "type": {
+        "def": {
+          "primitive": "u32"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "name": "snapshots",
+                "type": 13,
+                "typeName": "[WeeklySnapshot; 4]"
+              },
+              {
+                "name": "current_index",
+                "type": 2,
+                "typeName": "u8"
+              },
+              {
+                "name": "snapshot_count",
+                "type": 2,
+                "typeName": "u8"
+              }
+            ]
+          }
+        },
+        "path": [
+          "portfolio_manager",
+          "portfolio_manager",
+          "TokenSnapshotHistory"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "type": {
+        "def": {
+          "array": {
+            "len": 4,
+            "type": 14
+          }
+        }
+      }
+    },
+    {
+      "id": 14,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "name": "market_cap",
+                "type": 8,
+                "typeName": "u128"
+              },
+              {
+                "name": "price",
+                "type": 8,
+                "typeName": "u128"
+              },
+              {
+                "name": "timestamp",
+                "type": 9,
+                "typeName": "u64"
+              },
+              {
+                "name": "week_index",
+                "type": 2,
+                "typeName": "u8"
+              }
+            ]
+          }
+        },
+        "path": [
+          "portfolio_manager",
+          "portfolio_manager",
+          "WeeklySnapshot"
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "type": {
+        "def": {
+          "composite": {}
+        },
+        "params": [
+          {
+            "name": "L",
+            "type": 5
+          },
+          {
+            "name": "R",
+            "type": 16
+          }
+        ],
+        "path": [
+          "ink_storage_traits",
+          "impls",
+          "ResolverKey"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "type": {
+        "def": {
+          "composite": {}
+        },
+        "params": [
+          {
+            "name": "ParentKey",
+            "type": 7
+          }
+        ],
+        "path": [
+          "ink_storage_traits",
+          "impls",
+          "ManualKey"
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "type": {
+        "def": {
+          "primitive": "bool"
+        }
+      }
+    },
+    {
+      "id": 18,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "name": "owner",
+                "type": 0,
+                "typeName": "<Address as::ink::storage::traits::AutoStorableHint<::ink::\nstorage::traits::ManualKey<607848065u32, ()>,>>::Type"
+              },
+              {
+                "name": "refs",
+                "type": 3,
+                "typeName": "<Mapping<u8, Address> as::ink::storage::traits::AutoStorableHint<\n::ink::storage::traits::ManualKey<982526250u32, ()>,>>::Type"
+              },
+              {
+                "name": "token_snapshots",
+                "type": 10,
+                "typeName": "<Mapping<u32, TokenSnapshotHistory> as::ink::storage::traits::\nAutoStorableHint<::ink::storage::traits::ManualKey<779914339u32, ()\n>,>>::Type"
+              },
+              {
+                "name": "last_snapshot_timestamp",
+                "type": 9,
+                "typeName": "<u64 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<1212670034u32, ()>,>>::Type"
+              },
+              {
+                "name": "snapshot_interval_ms",
+                "type": 9,
+                "typeName": "<u64 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<638479208u32, ()>,>>::Type"
+              },
+              {
+                "name": "moving_average_enabled",
+                "type": 17,
+                "typeName": "<bool as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<2970264847u32, ()>,>>::Type"
+              },
+              {
+                "name": "last_monthly_rebalance",
+                "type": 9,
+                "typeName": "<u64 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<1576796542u32, ()>,>>::Type"
+              },
+              {
+                "name": "monthly_rebalance_interval_ms",
+                "type": 9,
+                "typeName": "<u64 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<3813942148u32, ()>,>>::Type"
+              },
+              {
+                "name": "max_monthly_shift_bp",
+                "type": 11,
+                "typeName": "<u32 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<1927555536u32, ()>,>>::Type"
+              },
+              {
+                "name": "current_month_shift_bp",
+                "type": 11,
+                "typeName": "<u32 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<3320453326u32, ()>,>>::Type"
+              },
+              {
+                "name": "rebalancing_enabled",
+                "type": 17,
+                "typeName": "<bool as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<2604105827u32, ()>,>>::Type"
+              },
+              {
+                "name": "last_streaming_fee_collection",
+                "type": 9,
+                "typeName": "<u64 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<2232999645u32, ()>,>>::Type"
+              },
+              {
+                "name": "total_streaming_fees_collected",
+                "type": 8,
+                "typeName": "<u128 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<3670348079u32, ()>,>>::Type"
+              },
+              {
+                "name": "streaming_fee_interval_ms",
+                "type": 9,
+                "typeName": "<u64 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<2597878825u32, ()>,>>::Type"
+              },
+              {
+                "name": "fee_treasury",
+                "type": 19,
+                "typeName": "<Option<Address> as::ink::storage::traits::AutoStorableHint<::\nink::storage::traits::ManualKey<948356067u32, ()>,>>::Type"
+              },
+              {
+                "name": "max_single_trade_usdc",
+                "type": 8,
+                "typeName": "<u128 as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<2854260180u32, ()>,>>::Type"
+              },
+              {
+                "name": "reentrancy_guard",
+                "type": 17,
+                "typeName": "<bool as::ink::storage::traits::AutoStorableHint<::ink::storage\n::traits::ManualKey<3806316724u32, ()>,>>::Type"
+              }
+            ]
+          }
+        },
+        "path": [
+          "portfolio_manager",
+          "portfolio_manager",
+          "PortfolioManager"
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 0,
+                "name": "None"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 0
+                  }
+                ],
+                "index": 1,
+                "name": "Some"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 0
+          }
+        ],
+        "path": [
+          "Option"
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 7
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 7
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 1,
+                "name": "CouldNotReadInput"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_primitives",
+          "LangError"
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 0
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 0
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 24
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 24
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 7
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 25
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 7
+          },
+          {
+            "name": "E",
+            "type": 25
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 25,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 0,
+                "name": "Unauthorized"
+              },
+              {
+                "index": 1,
+                "name": "TokenNotFound"
+              },
+              {
+                "index": 2,
+                "name": "InvalidParameter"
+              },
+              {
+                "index": 3,
+                "name": "ContractPaused"
+              },
+              {
+                "index": 4,
+                "name": "CrossContractCallFailed"
+              },
+              {
+                "index": 5,
+                "name": "TransferFailed"
+              },
+              {
+                "index": 6,
+                "name": "ReentrantCall"
+              },
+              {
+                "index": 7,
+                "name": "RebalanceNotDue"
+              },
+              {
+                "index": 8,
+                "name": "MovingAverageDisabled"
+              },
+              {
+                "index": 9,
+                "name": "SnapshotNotDue"
+              },
+              {
+                "index": 10,
+                "name": "TradeTooSmall"
+              },
+              {
+                "index": 11,
+                "name": "SellExceedsMaxSupplyPercentage"
+              },
+              {
+                "index": 12,
+                "name": "TradeTooLarge"
+              },
+              {
+                "index": 13,
+                "name": "PortfolioNotSet"
+              },
+              {
+                "index": 14,
+                "name": "ZeroAddress"
+              },
+              {
+                "index": 15,
+                "name": "ErrorCalculatingPortfolioValueFromContexts"
+              },
+              {
+                "index": 16,
+                "name": "ErrorCalculatingIndexValueBasedOnPortfolioValue"
+              },
+              {
+                "index": 17,
+                "name": "ErrorCalculatingIndexValueBasedOnBaseValue"
+              },
+              {
+                "index": 18,
+                "name": "PortfolioHeldIdsCallFailed"
+              },
+              {
+                "index": 19,
+                "name": "PortfolioHoldingCallFailed"
+              },
+              {
+                "index": 20,
+                "name": "PortfolioFeeConfigCallFailed"
+              },
+              {
+                "index": 21,
+                "name": "PortfolioPausedCallFailed"
+              },
+              {
+                "index": 22,
+                "name": "PortfolioIndexMetricsCallFailed"
+              },
+              {
+                "index": 23,
+                "name": "PortfolioUpdateHoldingCallFailed"
+              },
+              {
+                "index": 24,
+                "name": "PortfolioUpdateUsdcCallFailed"
+              },
+              {
+                "index": 25,
+                "name": "PortfolioAddFeesCallFailed"
+              },
+              {
+                "index": 26,
+                "name": "PortfolioUpdateIndexCallFailed"
+              },
+              {
+                "index": 27,
+                "name": "RegistryTokenDataCallFailed"
+              },
+              {
+                "index": 28,
+                "name": "DexSwapCallFailed"
+              },
+              {
+                "index": 29,
+                "name": "DexQuoteCallFailed"
+              },
+              {
+                "index": 30,
+                "name": "Psp22TransferFromCallFailed"
+              },
+              {
+                "index": 31,
+                "name": "Psp22ApproveCallFailed"
+              },
+              {
+                "index": 32,
+                "name": "Psp22TransferCallFailed"
+              },
+              {
+                "index": 33,
+                "name": "W3piMintCallFailed"
+              },
+              {
+                "index": 34,
+                "name": "W3piBurnCallFailed"
+              },
+              {
+                "index": 35,
+                "name": "W3piTotalSupplyCallFailed"
+              },
+              {
+                "index": 36,
+                "name": "ZeroW3piSupply"
+              },
+              {
+                "index": 37,
+                "name": "ZeroNavPerW3pi"
+              },
+              {
+                "index": 38,
+                "name": "NavCalculationFailed"
+              }
+            ]
+          }
+        },
+        "path": [
+          "portfolio_manager",
+          "portfolio_manager",
+          "Error"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 19
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 19
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 27,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 17
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 17
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 29
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 29
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 25
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 11
+          },
+          {
+            "name": "E",
+            "type": 25
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 31
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 31
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 8
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 25
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 8
+          },
+          {
+            "name": "E",
+            "type": 25
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 33
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 33
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 33,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 0,
+                "name": "None"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 12
+                  }
+                ],
+                "index": 1,
+                "name": "Some"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 12
+          }
+        ],
+        "path": [
+          "Option"
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 8
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 8
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 36
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 36
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 36,
+      "type": {
+        "def": {
+          "tuple": [
+            17,
+            9,
+            11,
+            11
+          ]
+        }
+      }
+    },
+    {
+      "id": 37,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 38
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 21
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 38
+          },
+          {
+            "name": "E",
+            "type": 21
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "type": {
+        "def": {
+          "tuple": [
+            9,
+            8,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "id": 39,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "type": 40,
+                "typeName": "[u8; 32]"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_primitives",
+          "types",
+          "AccountId"
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "type": {
+        "def": {
+          "array": {
+            "len": 32,
+            "type": 2
+          }
+        }
+      }
+    },
+    {
+      "id": 41,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "type": 40,
+                "typeName": "[u8; 32]"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_primitives",
+          "types",
+          "Hash"
+        ]
+      }
+    }
+  ],
+  "version": 6
+}
